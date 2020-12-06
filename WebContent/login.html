@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>用户登陆</title>
+<style>
+/*标签选择器*/
+ div{
+  height:32px;
+  width:245px;
+ }
+ /*类选择器*/
+ .content{
+  margin: 0 auto;
+  border:3px solid #BEBEBE;/*#e89375;*/
+  height:100px;
+  width:245px;
+  background-color:#C0C0C0;/*e6b688;*/
+  opacity:0.8;
+  padding-top:10px;
+  padding-left:10px;
+  text-align:center 
+ }
+ </style>
+</head>
+<body>
+<form action="userServlet?action=login" method="post"><!-- 消息体 -->
+
+ <div class="content">
+  欢迎登陆联想商城<br>
+ <div>
+  账号：<input type="text" name="userno" id="userno"><br>
+ </div>
+ <div>
+ 密码：<input type="password" name="pwd" id="pwd"><br>
+ </div>
+ <input type="submit" value="提交">
+ </div>
+</form>
+​
+</body>
+</html>
