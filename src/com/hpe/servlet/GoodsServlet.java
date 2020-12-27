@@ -1,0 +1,65 @@
+package com.hpe.servlet;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.hpe.pojo.Goods;
+import com.hpe.service.IGoodsService;
+import com.hpe.service.impl.GoodsServiceImpl;
+
+/**
+ * Servlet implementation class GoodsServlet
+ */
+@WebServlet("/GoodsServlet")
+public class GoodsServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+    private IGoodsService goodsService=new GoodsServiceImpl();   
+   
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public GoodsServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
+		String action=request.getParameter("action");
+		if(action.equals("findbytype")){
+			findByType(request, response);
+		}else if(action.equals("findAll")){
+			findAll(request, response);
+		}
+	}
+	protected void findAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		List<Goods> list=goodsService.findAll();
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("/index.jsp").forward(request, response);
+	}
+	protected void findByType(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int type=Integer.parseInt(request.getParameter("type"));
+		List<Goods> list=goodsService.findByType(type);
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("/index.jsp").forward(request, response);
+	}
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}

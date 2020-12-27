@@ -11,8 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.hpe.service.IGoodsService;
 import com.hpe.service.IUserService;
+import com.hpe.service.impl.GoodsServiceImpl;
 import com.hpe.service.impl.UserServiceImpl;
+import com.hpe.pojo.Goods;
 import com.hpe.pojo.User;
 
 /**
@@ -23,6 +26,7 @@ public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private IUserService usersService = new UserServiceImpl();
+	private IGoodsService goodsService = new GoodsServiceImpl();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -62,7 +66,9 @@ public class UserServlet extends HttpServlet {
 	     //登陆成功
 	     System.out.println("登陆成功！");
 	     request.getSession().setAttribute("user", user);
-	     
+	     //查询商品type=0
+	     List<Goods> list=goodsService.findByType(0);
+	     request.setAttribute("list", list);   
 	     request.getRequestDispatcher("index.jsp").forward(request, response);
 	     
 	    }else {

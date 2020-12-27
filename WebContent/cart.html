@@ -1,4 +1,7 @@
-﻿<!doctype html>
+﻿<%@ page language="java" import="java.util.*,java.text.*"
+	pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!doctype html>
 <html class="no-js" lang="en">
 
 <head>
@@ -40,14 +43,14 @@
 				<div class="row">
 					<div class="col-md-2 col-sm-3 col-xs-12">
 						<div class="logo">
-							<a href="index.html"><img src="img/logo/logo.jpg" alt="" /></a>
+							<a href="index.jsp"><img src="img/logo/logo.jpg" alt="" /></a>
 						</div>
 					</div>
 					<div class="col-md-10 col-sm-9 col-xs-12 text-right xs-center">
 						<div class="main-menu display-inline hidden-sm hidden-xs">
 							<nav>
 								<ul>
-									<li><a href="index.html">Home</a></li>
+									<li><a href="index.jsp">Home</a></li>
 									<li><a href="shop.html">Sofa</a></li>
 									<li><a href="#">Elements</a></li>
 									<li><a href="shop.html">Lighting</a></li>
@@ -193,7 +196,23 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
+								<c:forEach items="${sessionScope.shoppingcar }" var="car">
+
+										<tr>
+											<td class="line_table" align="center" width="40%"><span
+												class="left_txt">${car.name }</span></td>
+											<td class="line_table" align="center" width="20%"><span
+												class="left_txt">${car.price  }</span></td>
+											<td class="line_table" align="center" width="20%"><span
+												class="left_txt">${car.sum }</span></td>
+												<c:set var="count" value="${count+car.sum }"></c:set>
+												<c:set var="sum" value="${sum+car.sum*car.price }"></c:set>
+											<td class="line_table" align="center" width="20%"><a
+												href="shoppingCarServlet?action=delCar&&menuid=${car.menuid }&&pageIndex=${page.curPage}">取消</a></td>
+										</tr>
+									   </c:forEach>
+
+									<!-- <tr>
 										<td class="product-thumbnail"><a href="#"><img src="img/product/1.jpg" alt="" /></a></td>
 										<td class="product-name"><a href="#">Vestibulum suscipit</a></td>
 										<td class="product-price"><span class="amount">£165.00</span></td>
@@ -208,7 +227,7 @@
 										<td class="product-quantity"><input type="number" value="1" /></td>
 										<td class="product-subtotal">£50.00</td>
 										<td class="product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
-									</tr>
+									</tr> -->
 								</tbody>
 							</table>
 						</div>
