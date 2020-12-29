@@ -1,39 +1,43 @@
-package pojo;
+package com.pojo;
 
+/**
+ * @author maple
+ *
+ */
 public class User {
-	private int id;//会员账号
-	private String name;//昵称
-	private String pwd;//密码
-	private String realname;//真实姓名
-	private String sex;//性别
-	private String address;//地址
-	private String phone;//电话
-	private String email;//邮箱
+	private int id;//鐢ㄦ埛id
+	private String userno;//鏄电О
+	private String password;//瀵嗙爜
+	private String name;//鐪熷疄濮撳悕
+	private String sex;//鎬у埆
+	private String address;//鍦板潃
+	private String phone;//鐢佃瘽
+	private String email;//閭
 	
-	public User(String name, String pwd)
+	public User(String userno, String password)
 	  {
-	    this.name = name;
-	    this.pwd = pwd;
+	    this.userno = userno;
+	    this.password = password;
 	  }
 	
 	public User() {}
 	
-	public User(int id,String name, String pwd, String realname, String sex,String address,String phone, String email) {
+	public User(int id,String userno, String password, String name, String sex,String address,String phone, String email) {
 		super();
 		this.id = id;
+		this.userno = userno;
+		this.password = password;
 		this.name = name;
-		this.pwd = pwd;
-		this.realname = realname;
 		this.sex = sex;
 		this.address = address;
 		this.phone = phone;
 		this.email = email;
 	}
-	public User(String name, String pwd, String realname, String sex,String address,String phone, String email) {
+	public User(String userno, String password, String name, String sex,String address,String phone, String email) {
 		super();
+		this.userno = userno;
+		this.password = password;
 		this.name = name;
-		this.pwd = pwd;
-		this.realname = realname;
 		this.sex = sex;
 		this.address = address;
 		this.phone = phone;
@@ -45,23 +49,23 @@ public class User {
 	public void setId(int id) {
 		this.id = id;
 	}
+	public String getUserno() {
+		return userno;
+	}
+	public void setUserno(String userno) {
+		this.userno = userno;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public String getPwd() {
-		return pwd;
-	}
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
-	}
-	public String getRealname() {
-		return realname;
-	}
-	public void setRealname(String realname) {
-		this.realname = realname;
 	}
 	public String getSex() {
 		return sex;
