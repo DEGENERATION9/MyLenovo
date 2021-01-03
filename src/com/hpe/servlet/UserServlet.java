@@ -50,35 +50,51 @@ public class UserServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		if (action.equals("login")) {
 			login(request, response);
+		}else if (action.equals("logout")) {
+			logout(request, response);
 		}
+	} 
+
+	// 注销
+	protected void logout(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
+		HttpSession session = request.getSession();
+		// 清除session，跳转登录页
+		session.removeAttribute("user");
+		out.write("<script>" + "alert('恭喜你,退出成功');" + "window.location.href='" + request.getContextPath()
+				+ "/shoppingCarServlet?action=delCar';" + "</script>");
+		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
+
 	protected void login(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String userno=request.getParameter("userno"); //获得账号
-	    String pwd=request.getParameter("pwd");//获得密码
-	    
+		String userno = request.getParameter("userno"); // 获得账号
+		String pwd = request.getParameter("pwd");// 获得密码
+
 		PrintWriter out = response.getWriter();
 
-	    IUserService userService=new UserServiceImpl();
-	    //调用service（业务层）的方法
-	    User user=userService.login(userno,pwd);
-	    if(user!=null) {
-	     //登陆成功
-	     System.out.println("登陆成功！");
-	     request.getSession().setAttribute("user", user);
-	     //查询商品type=0
-	     List<Goods> list=goodsService.findByType(0);
-	     request.setAttribute("list", list);   
-	     request.getRequestDispatcher("index.jsp").forward(request, response);
-	     
-	    }else {
-	     //登陆失败,跳到登陆页
-	    	out.write("<script>" + "alert('用户名或密码错误，登陆失败!');"+"</script>");
-	     System.out.println("账号密码错误！请重新登陆");
-	     request.getRequestDispatcher("login.html").forward(request, response);
-	     
-	    }
+		IUserService userService = new UserServiceImpl();
+		// 调用service（业务层）的方法
+		User user = userService.login(userno, pwd);
+		if (user != null) {
+			// 登陆成功
+			System.out.println("登陆成功！");
+			request.getSession().setAttribute("user", user);
+			// 查询商品type=0
+			List<Goods> list = goodsService.findByType(0);
+			request.setAttribute("list", list);
+			request.getRequestDispatcher("GoodsServlet?action=findbytype&&type=0").forward(request, response);
+
+		} else {
+			// 登陆失败,跳到登陆页
+			out.write("<script>" + "alert('用户名或密码错误，登陆失败!');" + "</script>");
+			System.out.println("账号密码错误！请重新登陆");
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+
+		}
 	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)

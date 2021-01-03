@@ -48,13 +48,99 @@ public class ShoppingCarServlet extends HttpServlet {
 			delAll(request, response);
 		} else if (action.equals("delCar")) {
 			delCar(request, response);
+		}else if (action.equals("addOld")) {
+			//加1
+			addOld(request, response);
+		}else if (action.equals("delOld")) {
+			//减1
+			delOld(request, response);
+		}else if (action.equals("addQua")) {
+			//改变数量
+			addQua(request, response);
 		}
 	}
+	
+	protected void addQua(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// 获取商品id
+		int goodsid = Integer.parseInt(request.getParameter("goodsid"));
+		int nowQuantity = Integer.parseInt(request.getParameter("quantity"));
 
+		// 获取购物车
+		HttpSession session = request.getSession();
+		List<ShoppingCar> carlist = (List<ShoppingCar>) session.getAttribute("shoppingcar");
+		for (ShoppingCar car : carlist) {
+			if (car.getGoodsid() == goodsid) {
+				if(nowQuantity<=1)
+				{
+					car.setSum(1);
+				}else{
+					car.setSum(nowQuantity);
+				}
+				break;
+			}
+		}
+		// 把购物车放到session中
+		session.setAttribute("shoppingcar", carlist);
+/*		request.getRequestDispatcher("index.jsp").forward(request, response);*/
+		request.getRequestDispatcher("cart.jsp").forward(request, response);
+
+	}
+	protected void delOld(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// 获取商品id
+		int goodsid = Integer.parseInt(request.getParameter("goodsid"));
+		// 获取购物车
+		HttpSession session = request.getSession();
+		List<ShoppingCar> carlist = (List<ShoppingCar>) session.getAttribute("shoppingcar");
+		for (ShoppingCar car : carlist) {
+			if (car.getGoodsid() == goodsid) {
+				if(car.getSum()<=1)
+				{
+					car.setSum(1);
+				}else{
+					car.setSum(car.getSum() - 1);
+				}
+				
+				
+				break;
+			}
+		}
+		// 把购物车放到session中
+		session.setAttribute("shoppingcar", carlist);
+/*		request.getRequestDispatcher("index.jsp").forward(request, response);*/
+		request.getRequestDispatcher("cart.jsp").forward(request, response);
+
+	}
+//实现 购物车中商品数量的调整
+	protected void addOld(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// 获取商品id
+		int goodsid = Integer.parseInt(request.getParameter("goodsid"));
+		//int nowQuantity = Integer.parseInt(request.getParameter("quantity"));
+
+		// 获取购物车
+		HttpSession session = request.getSession();
+		List<ShoppingCar> carlist = (List<ShoppingCar>) session.getAttribute("shoppingcar");
+		for (ShoppingCar car : carlist) {
+			if (car.getGoodsid() == goodsid) {
+				car.setSum(car.getSum() + 1);
+				
+				break;
+			}
+		}
+		// 把购物车放到session中
+		session.setAttribute("shoppingcar", carlist);
+/*		request.getRequestDispatcher("index.jsp").forward(request, response);*/
+		request.getRequestDispatcher("cart.jsp").forward(request, response);
+
+	}
 	protected void addCar(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// 获取商品id
 		int goodsid = Integer.parseInt(request.getParameter("goodsid"));
+		//int quantity = Integer.parseInt(request.getParameter("quantity"));
+
 		// 获取购物车
 		HttpSession session = request.getSession();
 		List<ShoppingCar> carlist = (List<ShoppingCar>) session.getAttribute("shoppingcar");
@@ -70,6 +156,7 @@ public class ShoppingCarServlet extends HttpServlet {
 			for (ShoppingCar car : carlist) {
 				if (car.getGoodsid() == goodsid) {
 					car.setSum(car.getSum() + 1);
+					
 					flag = true;
 					break;
 				}
@@ -91,10 +178,10 @@ public class ShoppingCarServlet extends HttpServlet {
 		// 把购物车放到session中
 		session.setAttribute("shoppingcar", carlist);
 /*		request.getRequestDispatcher("index.jsp").forward(request, response);*/
-		response.sendRedirect(request.getContextPath()+"/index.jsp");
+		response.sendRedirect("GoodsServlet?action=findbytype&&type=0");
 
 	}
-
+//删除一个
 	protected void delAll(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// 获取id
@@ -115,6 +202,7 @@ public class ShoppingCarServlet extends HttpServlet {
 		response.sendRedirect(request.getContextPath()+"/cart.jsp");
 	}
 
+	// 清空购物车
 	protected void delCar(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();

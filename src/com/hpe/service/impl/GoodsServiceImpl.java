@@ -38,5 +38,15 @@ public class GoodsServiceImpl implements IGoodsService {
 		// TODO Auto-generated method stub
 		return goodsDao.findAll();
 	}
+	
+	
+	/**
+	 * @author xyh
+	 * @date 2020/12/23 15:49
+	 */
+	@Override
+	public List search(String title) {
+		return goodsDao.search(title);
+	}
 
 }

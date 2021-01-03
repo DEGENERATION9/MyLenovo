@@ -5,6 +5,9 @@ package com.hpe.pojo;
 
 import java.math.BigDecimal;
 
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.converters.BigDecimalConverter;
+
 /**
  * 商品类
  * @author 晓
@@ -21,6 +24,7 @@ public class Goods {
 	int num;//商品库存
 	String text;//商品详细信息
 	String config;//商品配置信息
+	
 	
 	public int getId() {
 		return id;
@@ -52,11 +56,15 @@ public class Goods {
 	public void setInfo(String info) {
 		this.info = info;
 	}
+
 	public BigDecimal getPrice() {
+		
 		return price;
 	}
 	public void setPrice(BigDecimal price) {
+		
 		this.price = price;
+		
 	}
 	public int getNum() {
 		return num;

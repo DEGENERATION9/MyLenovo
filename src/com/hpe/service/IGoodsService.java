@@ -13,6 +13,12 @@ import com.hpe.pojo.Goods;
  */
 public interface IGoodsService {
 
+	/**
+	 * @author xyh
+	 * @date 2020/12/23 15:49
+	 */
+	 List search(String title);
+	 
 	/** 
 	 * 方法描述：
 	 * @param type 

@@ -13,6 +13,12 @@ import com.hpe.pojo.Goods;
  */
 public interface IGoodsDao {
 
+	/**
+	 * @author xyh
+	 * @date 2020/12/23 15:49
+	 */
+	List search(String title);
+	
 	/** 
 	 * 方法描述：通过type查找不同类型的产品
 	 * @param type 

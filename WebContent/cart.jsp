@@ -4,6 +4,8 @@
 <!doctype html>
 <html class="no-js" lang="en">
 
+
+
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -29,7 +31,32 @@
 <link rel="stylesheet" href="css/custom.css">
 
 <!-- Modernizr JS -->
-<script src="js/vendor/modernizr-2.8.3.min.js"></script>
+<script src="js/vendor/modernizr-2.8.3.min.js">
+	
+</script>
+
+<!-- 购物车数量加减 -->
+<script>
+        function getNum(){
+            var num=document.getElementById('qua').value;
+            var gooid=document.getElementById('gooid').value;
+            var url="shoppingCarServlet?action=addQua&&goodsid="+gooid+"&&quantity="+num;
+            window.location.href=url;
+        }
+ 
+</script>
+<!-- 数字输入上下箭头不显示-->
+ <style type="text/css">
+input[type=number] {
+	-moz-appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button
+	{
+	-webkit-appearance: none;
+	margin: 0;
+}
+</style>
 </head>
 
 <body>
@@ -53,7 +80,7 @@
 									<li><font color="orange">亲爱的 <b>${user.name }</b>
 											您好!&nbsp;&nbsp;欢迎光临!
 									</font></li>
-									<li><a href="index.jsp">首页</a></li>
+									<li><a href="GoodsServlet?action=findbytype&&type=0">首页</a></li>
 									<li><a href="shop.html">商城</a></li>
 								</ul>
 							</nav>
@@ -71,12 +98,10 @@
 							<a href="cart.jsp"><b>购物车</b></a>
 
 							<ul>
-							<c:forEach items="${sessionScope.shoppingcar }"
-										var="car">
-								<li>
-										<c:set var="count" value="${car.sum }"></c:set>
-											<c:set var="sum" value="${car.sum*car.price }"></c:set>
-											<c:set var="total" value="${total+car.sum*car.price }"></c:set>
+								<c:forEach items="${sessionScope.shoppingcar }" var="car">
+									<li><c:set var="count" value="${car.sum }"></c:set> <c:set
+											var="sum" value="${car.sum*car.price }"></c:set> <c:set
+											var="total" value="${total+car.sum*car.price }"></c:set>
 										<div class="cart-img">
 											<a href="#"><img src="img/product/${car.name }.jpg"
 												weight="80%" height="80px" alt="${car.name }" /></a>
@@ -92,12 +117,10 @@
 												</p>
 											</span>
 
-										</div>
-										<!-- <div class="cart-del">
+										</div> <!-- <div class="cart-del">
 											<i class="fa fa-times-circle"></i>
-										</div> -->
-									</li>
-							</c:forEach>
+										</div> --></li>
+								</c:forEach>
 								<li>
 									<!-- <div class="shipping"> 
 										<span class="f-left">Shopping </span>
@@ -111,13 +134,13 @@
 								</li>
 								<li class="checkout m-0"><a href="#">结算 <i
 										class="fa fa-angle-right"></i></a></li>
-							
+
 							</ul>
 						</div>
 						<div class="setting-menu display-inline">
 							<div class="icon-nav current"></div>
 							<ul class="content-nav toogle-content">
-								<li class="currencies-block-top">
+								<!-- <li class="currencies-block-top">
 									<div class="current">
 										<b>Currency : USD</b>
 									</div>
@@ -142,8 +165,9 @@
 									<ul>
 										<li><a href="#">My account</a></li>
 										<li><a href="#">My wishlist</a></li>
-										<li><a href="#">Checkout</a></li>
-										<li><a href="#">Log in</a></li>
+										<li><a href="#">Checkout</a></li> -->
+										<li><a href="login.jsp">登录</a></li>  
+										<li><a href="userServlet?action=logout">注销</a></li>
 									</ul>
 								</li>
 							</ul>
@@ -162,7 +186,7 @@
 									<li><font color="orange">亲爱的 <b>${user.name }</b>
 											您好!&nbsp;&nbsp;欢迎光临!
 									</font></li>
-									<li><a href="index.html">首页</a></li>
+									<li><a href="GoodsServlet?action=findbytype&&type=0">首页</a></li>
 									<li><a href="shop.html">商城</a></li>
 								</ul>
 							</nav>
@@ -178,7 +202,7 @@
 	<div class="breadcrumb-area">
 		<div class="container">
 			<ol class="breadcrumb">
-				<li><a href="#"><i class="fa fa-home"></i></a></li>
+				<li><a href="GoodsServlet?action=findbytype&&type=0"><i class="fa fa-home"></i></a></li>
 				<li><a href="shop.html">商城</a></li>
 				<li class="active">购物车</li>
 			</ol>
@@ -190,40 +214,55 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 col-sm-12 col-xs-12">
-					<form action="#">
-						<div class="table-content table-responsive">
-							<table>
-								<thead>
+					<div class="table-content table-responsive">
+						<table>
+							<thead>
+								<tr>
+									<th class="product-thumbnail">图片</th>
+									<th class="product-name">产品</th>
+									<th class="product-price">价格</th>
+									<th class="product-quantity">数量</th>
+									<th class="product-subtotal">总价</th>
+									<th class="product-remove">删除</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${sessionScope.shoppingcar }" var="car">
 									<tr>
-										<th class="product-thumbnail">图片</th>
-										<th class="product-name">产品</th>
-										<th class="product-price">价格</th>
-										<th class="product-quantity">数量</th>
-										<th class="product-subtotal">总价</th>
-										<th class="product-remove">删除</th>
+										<td class="product-thumbnail"><a href="#"><img
+												src="img/product/${car.name }.jpg" alt="" /></a></td>
+										<td class="product-name" id="carName"><a href="#">${car.name }</a></td>
+										<td class="product-price"><span class="amount">${car.price  }</span></td>
+										<input type="hidden" id="gooid" value="${car.goodsid }"/>
+										<td class="product-quantity">
+											<a href="shoppingCarServlet?action=delOld&&goodsid=${car.goodsid}">
+											<button type="button" 
+												>-</button> </a>
+											<!-- <a href="" onclick="getNum()"> -->
+											<input type="text" id="qua" name="qua"  value="${car.sum }" min="1" style="text-align:center;" onchange="getNum()" />
+											<!-- </a> -->
+											<a href="shoppingCarServlet?action=addOld&&goodsid=${car.goodsid}">
+												<button type="button" 
+												>+</button> </a>
+												<!-- ng-click="add(item.id)" -->
+										</td>
+										
+
+										<c:set var="count" value="${car.sum }"></c:set>
+										<c:set var="sum" value="${car.sum*car.price}"></c:set>
+
+										<td class="product-subtotal"  ng-bind="totalPrice()">${sum }</td>
+
+										</form>
+
+										<td class="product-remove"><a
+											href="shoppingCarServlet?action=delAll&&goodsid=1"><i
+												class="fa fa-times"></i></a></td>
 									</tr>
-								</thead>
-								<tbody>
-									<c:forEach items="${sessionScope.shoppingcar }" var="car">
-										<tr>
-											<td class="product-thumbnail"><a href="#"><img
-													src="img/product/${car.name }.jpg" alt="" /></a></td>
-											<td class="product-name" id="carName"><a href="#">${car.name }</a></td>
-											<td class="product-price"><span class="amount">${car.price  }</span></td>
-											<td class="product-quantity"><input type="number"
-												value="${car.sum }" /></td>
-											<c:set var="count" value="${car.sum }"></c:set>
-											<c:set var="sum" value="${car.sum*car.price }"></c:set>
-											<%-- <c:set var="total" value="${total+car.sum*car.price }"></c:set> --%>
-											<td class="product-subtotal">${sum }</td>
-											<td class="product-remove"><a
-												href="shoppingCarServlet?action=delAll&&goodsid=1"><i
-													class="fa fa-times"></i></a></td>
-										</tr>
 
-									</c:forEach>
+								</c:forEach>
 
-									<!-- <tr>
+								<!-- <tr>
 										<td class="product-thumbnail"><a href="#"><img src="img/product/1.jpg" alt="" /></a></td>
 										<td class="product-name"><a href="#">Vestibulum suscipit</a></td>
 										<td class="product-price"><span class="amount">£165.00</span></td>
@@ -239,48 +278,48 @@
 										<td class="product-subtotal">£50.00</td>
 										<td class="product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
 									</tr> -->
-								</tbody>
-							</table>
-						</div>
-						<div class="row">
-							<div class="col-md-8 col-sm-7 col-xs-12">
-								<div class="buttons-cart">
-									<!-- <input type="submit" value="清空购物车" /> -->
-									<a href="shoppingCarServlet?action=delCar">清空购物车</a> <a
-										href="shop.html">继续购物</a>
-								</div>
-								<!-- <div class="coupon">
+							</tbody>
+						</table>
+					</div>
+					<div class="row">
+						<div class="col-md-8 col-sm-7 col-xs-12">
+							<div class="buttons-cart">
+								<!-- <input type="submit" value="清空购物车" /> -->
+								<a href="shoppingCarServlet?action=delCar">清空购物车</a> <a
+									href="shop.html">继续购物</a>
+							</div>
+							<!-- <div class="coupon">
 									<h3>Coupon</h3>
 									<p>Enter your coupon code if you have one.</p>
 									<input type="text" placeholder="Coupon code" />
 									<input type="submit" value="Apply Coupon" />
 								</div> -->
-							</div>
-							<div class="col-md-4 col-sm-5 col-xs-12">
-								<div class="cart_totals">
-									<h2>CART
-										总&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;计</h2>
-									<table>
-										<tbody>
-											<!-- <tr class="cart-subtotal">
+						</div>
+						<div class="col-md-4 col-sm-5 col-xs-12">
+							<div class="cart_totals">
+								<h2>CART
+									总&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;计</h2>
+								<table>
+									<tbody>
+										<!-- <tr class="cart-subtotal">
 												<th>Subtotal</th>
 												<td><span class="amount">￥215.00</span></td>
 											</tr>
  -->
-											<tr class="order-total">
-												<th>合计</th>
-												<td><strong><span class="amount">${total }</span></strong>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-									<div class="wc-proceed-to-checkout">
-										<a href="#">结算</a>
-									</div>
+										<tr class="order-total">
+											<th>合计</th>
+											<td><strong><span class="amount">${total }</span></strong>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<div class="wc-proceed-to-checkout">
+									<a href="#">结算</a>
 								</div>
 							</div>
 						</div>
-					</form>
+					</div>
+
 				</div>
 			</div>
 		</div>

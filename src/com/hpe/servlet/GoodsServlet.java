@@ -40,7 +40,22 @@ public class GoodsServlet extends HttpServlet {
 			findByType(request, response);
 		}else if(action.equals("findAll")){
 			findAll(request, response);
+		}else if(action.equals("search")){
+			search(request, response);
 		}
+	}
+	
+	/**
+	 * @author xyh
+	 * @date 2020/12/23 16:31
+	 */
+	protected void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String title = request.getParameter("title");
+        GoodsServiceImpl goodsService = new GoodsServiceImpl();
+        List search = goodsService.search(title);
+        request.setAttribute("search",search);
+        request.setAttribute("title",title);
+        request.getRequestDispatcher("/search.jsp").forward(request,response);
 	}
 	protected void findAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -48,6 +63,7 @@ public class GoodsServlet extends HttpServlet {
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/index.jsp").forward(request, response);
 	}
+	//通过type查询
 	protected void findByType(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int type=Integer.parseInt(request.getParameter("type"));
 		List<Goods> list=goodsService.findByType(type);

@@ -33,6 +33,7 @@
 
 <!-- Modernizr JS -->
 <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+
 </head>
 
 <body>
@@ -56,8 +57,7 @@
 									<li><font color="orange">亲爱的 <b>${user.name }</b>
 											您好!&nbsp;&nbsp;欢迎光临!
 									</font></li>
-									<li><a href="index.html">首页</a>
-									</li>
+									<li><a href="GoodsServlet?action=findbytype&&type=0">首页</a></li>
 									<li><a href="shop.html">商城</a></li>
 
 								</ul>
@@ -67,22 +67,21 @@
 						<div class="search-block-top display-inline">
 							<div class="icon-search"></div>
 							<div class="toogle-content">
-								<form action="#" id="searchbox">
-									<input type="text" placeholder="Search" />
+								<form action="GoodsServlet?action=search" method="post"
+									id="searchbox">
+									<input type="text" name="title" placeholder="搜索" />
 									<button class="button-search"></button>
 								</form>
 							</div>
 						</div>
-									<div class="shopping-cart ml-20 display-inline">
+						<div class="shopping-cart ml-20 display-inline">
 							<a href="cart.jsp"><b>购物车</b></a>
 
 							<ul>
-							<c:forEach items="${sessionScope.shoppingcar }"
-										var="car">
-								<li>
-										<c:set var="count" value="${car.sum }"></c:set>
-										<c:set var="sum" value="${car.sum*car.price }"></c:set>
-										<c:set var="total" value="${total+car.sum*car.price }"></c:set>
+								<c:forEach items="${sessionScope.shoppingcar }" var="car">
+									<li><c:set var="count" value="${car.sum }"></c:set> <c:set
+											var="sum" value="${car.sum*car.price }"></c:set> <c:set
+											var="total" value="${total+car.sum*car.price }"></c:set>
 										<div class="cart-img">
 											<a href="#"><img src="img/product/${car.name }.jpg"
 												weight="80%" height="80px" alt="${car.name }" /></a>
@@ -98,12 +97,10 @@
 												</p>
 											</span>
 
-										</div>
-										<!-- <div class="cart-del">
+										</div> <!-- <div class="cart-del">
 											<i class="fa fa-times-circle"></i>
-										</div> -->
-									</li>
- 						</c:forEach>
+										</div> --></li>
+								</c:forEach>
 								<li>
 									<!-- <div class="shipping"> 
 										<span class="f-left">Shopping </span>
@@ -117,13 +114,13 @@
 								</li>
 								<li class="checkout m-0"><a href="cart.jsp">结算 <i
 										class="fa fa-angle-right"></i></a></li>
-								
+
 							</ul>
 						</div>
 						<div class="setting-menu display-inline">
 							<div class="icon-nav current"></div>
 							<ul class="content-nav toogle-content">
-								<li class="currencies-block-top">
+								<!-- <li class="currencies-block-top">
 									<div class="current">
 										<b>Currency : USD</b>
 									</div>
@@ -148,8 +145,9 @@
 									<ul>
 										<li><a href="#">My account</a></li>
 										<li><a href="#">My wishlist</a></li>
-										<li><a href="#">Checkout</a></li>
-										<li><a href="login.html">Log in</a></li>
+										<li><a href="#">Checkout</a></li> -->
+										<li><a href="login.jsp">登录</a></li>  
+										<li><a href="userServlet?action=logout">注销</a></li>
 									</ul>
 								</li>
 							</ul>
@@ -166,7 +164,7 @@
 							<nav id="mobile-menu-active">
 								<ul>
 
-									<li><a href="index.html"><font color="white">首页</font></a>
+									<li><a href="GoodsServlet?action=findbytype&&type=0"><font color="white">首页</font></a>
 									</li>
 									<li><a href="shop.html"><font color="white">商城</font></a></li>
 								</ul>
@@ -208,7 +206,7 @@
 						</div>
 						<div class="cap-readmore wow bounceInUp" data-wow-duration="1.3s"
 							data-wow-delay=".5s">
-							<a href="#">Shopping</a>
+							<a href="shop.jsp">Shopping</a>
 						</div>
 					</div>
 				</div>
@@ -264,42 +262,238 @@
 	</div> -->
 	<!-- banner-area end -->
 	<!-- new-arrival-area start -->
-	<div class="new-arrival-area pt-100">
-		<div class="container">
-			<div class="row">
-				<div class="section-title text-center mb-20">
-					<h2>新品展示</h2>
+	<form action="GoodsServlet?action=findbytype&&type=0" method="post">
+		<div class="new-arrival-area pt-100">
+			<div class="container">
+				<div class="row">
+					<div class="section-title text-center mb-20">
+						<h2>新品展示</h2>
+					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<div class="product-tab">
-						<!-- Nav tabs -->
-						<ul class="custom-tab text-center mb-40">
-							<li class="active"><a href="GoodsServlet?action=findAll">笔记本</a></li>
-							<li><a href="#profile" data-toggle="tab"> 台式</a></li>
-							<li><a href="#messages" data-toggle="tab"> pad</a></li>
-							<li><a href="#settings" data-toggle="tab"> 配饰</a></li>
-							<!-- <li><a href="#new" data-toggle="tab"> What's New</a></li> -->
-						</ul>
-						<!-- Tab panes -->
 
-						<div class="row">
-							<div class="tab-content">
-								<div class="tab-pane active" id="home">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="product-tab">
+							<!-- Nav tabs -->
+							<ul class="custom-tab text-center mb-40">
+								<li><a href="GoodsServlet?action=findbytype&&type=0">笔记本</a></li>
+								<li><a href="GoodsServlet?action=findbytype&&type=1">
+										台式</a></li>
+								<li><a href="GoodsServlet?action=findbytype&&type=2">
+										pad</a></li>
+								<li><a href="GoodsServlet?action=findbytype&&type=3">
+										配饰</a></li>
+								<!-- <li><a href="#new" data-toggle="tab"> What's New</a></li> -->
+							</ul>
+							<!-- Tab panes -->
 
-									<div class="product-carousel">
-										<!--  <c:forEach items="${requestScope.list}" var="item">
+							<div class="row">
+								<div class="tab-content">
+									<div class="tab-pane active" id="home">
+										<div class="product-carousel">
+											<!-- c:foreach -->
+											<!-- <form action="GoodsServlet?action=findbytype&&type=0"
+											method="post"> -->
+											<c:forEach items="${list}" var="item" begin="0" end="3">
+												<div class="col-md-12">
+													<div class="product-wrapper mb-40">
+														<div class="product-img">
+															<a href="#"><img src="img/product/${item.title }.jpg"
+																alt="" /></a> <span class="new-label">New</span>
+															<div class="product-action">
+																<a
+																	href="shoppingCarServlet?action=add&&goodsid=${item.id }"><i
+																	class="pe-7s-cart"></i></a> <a href="#"><i
+																	class="pe-7s-like"></i></a> <a href="#"><i
+																	class="pe-7s-folder"></i></a> <a href="#"
+																	data-toggle="modal" data-target="#productModal"><i
+																	class="pe-7s-look"></i></a>
+															</div>
+														</div>
+														<div class="product-content">
+															<div class="pro-title">
+																<h3>
+																	<a href="product-details.html">${item.title }</a>
+																</h3>
+															</div>
+															<div class="price-reviews">
+																<div class="price-box">
+																	<span class="price product-price">${item.price }</span>
+																	<span class="old-price product-price">$262.00</span>
+																</div>
+																<div class="pro-rating">
+																	<a href="#"><i class="fa fa-star-o"></i></a> <a
+																		href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
+																		class="fa fa-star-o"></i></a> <a href="#"><i
+																		class="fa fa-star-o"></i></a> <a href="#"><i
+																		class="fa fa-star-o"></i></a>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</c:forEach>
+
+											<!-- </form> -->
+										</div>
+									</div>
+									<!-- home type0 end -->
+
+									<div class="tab-pane active" id="taishi">
+										<div class="product-carousel">
+											<!-- c:foreach -->
+											<!-- <form action="GoodsServlet?action=findbytype&&type=1"
+											method="post"> -->
+											<c:forEach items="${list}" var="item" begin="4" end="7">
+												<div class="col-md-12">
+													<div class="product-wrapper mb-40">
+														<div class="product-img">
+															<a href="#"><img src="img/product/${item.title }.jpg"
+																alt="" /></a> <span class="new-label">New</span>
+															<div class="product-action">
+																<a
+																	href="shoppingCarServlet?action=add&&goodsid=${item.id }"><i
+																	class="pe-7s-cart"></i></a> <a href="#"><i
+																	class="pe-7s-like"></i></a> <a href="#"><i
+																	class="pe-7s-folder"></i></a> <a href="#"
+																	data-toggle="modal" data-target="#productModal"><i
+																	class="pe-7s-look"></i></a>
+															</div>
+														</div>
+														<div class="product-content">
+															<div class="pro-title">
+																<h3>
+																	<a href="product-details.html">${item.title }</a>
+																</h3>
+															</div>
+															<div class="price-reviews">
+																<div class="price-box">
+																	<span class="price product-price">${item.price }</span>
+																	<span class="old-price product-price">$262.00</span>
+																</div>
+																<div class="pro-rating">
+																	<a href="#"><i class="fa fa-star-o"></i></a> <a
+																		href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
+																		class="fa fa-star-o"></i></a> <a href="#"><i
+																		class="fa fa-star-o"></i></a> <a href="#"><i
+																		class="fa fa-star-o"></i></a>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</c:forEach>
+											<!-- </form> -->
+										</div>
+									</div>
+									<!-- taishi type1 end -->
+
+									<div class="tab-pane" id="pad">
+										<div class="product-carousel">
+											<!-- c:foreach -->
+											<!-- <form action="GoodsServlet?action=findbytype&&type=2"
+											method="post"> -->
+											<c:forEach items="${list}" var="item">
+												<div class="col-md-12">
+													<div class="product-wrapper mb-40">
+														<div class="product-img">
+															<a href="#"><img src="img/product/${item.title }.jpg"
+																alt="" /></a> <span class="new-label">New</span>
+															<div class="product-action">
+																<a
+																	href="shoppingCarServlet?action=add&&goodsid=${item.id }"><i
+																	class="pe-7s-cart"></i></a> <a href="#"><i
+																	class="pe-7s-like"></i></a> <a href="#"><i
+																	class="pe-7s-folder"></i></a> <a href="#"
+																	data-toggle="modal" data-target="#productModal"><i
+																	class="pe-7s-look"></i></a>
+															</div>
+														</div>
+														<div class="product-content">
+															<div class="pro-title">
+																<h3>
+																	<a href="product-details.html">${item.title }</a>
+																</h3>
+															</div>
+															<div class="price-reviews">
+																<div class="price-box">
+																	<span class="price product-price">${item.price }</span>
+																	<span class="old-price product-price">$262.00</span>
+																</div>
+																<div class="pro-rating">
+																	<a href="#"><i class="fa fa-star-o"></i></a> <a
+																		href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
+																		class="fa fa-star-o"></i></a> <a href="#"><i
+																		class="fa fa-star-o"></i></a> <a href="#"><i
+																		class="fa fa-star-o"></i></a>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</c:forEach>
+											<!-- </form> -->
+										</div>
+									</div>
+									<!-- pad type1 end -->
+
+									<div class="tab-pane" id="shiping">
+										<div class="product-carousel">
+											<!-- c:foreach -->
+											<!-- <form action="GoodsServlet?action=findbytype&&type=3"
+											method="post"> -->
+											<c:forEach items="${list}" var="item">
+												<div class="col-md-12">
+													<div class="product-wrapper mb-40">
+														<div class="product-img">
+															<a href="#"><img src="img/product/${item.title }.jpg"
+																alt="" /></a> <span class="new-label">New</span>
+															<div class="product-action">
+																<a
+																	href="shoppingCarServlet?action=add&&goodsid=${item.id }"><i
+																	class="pe-7s-cart"></i></a> <a href="#"><i
+																	class="pe-7s-like"></i></a> <a href="#"><i
+																	class="pe-7s-folder"></i></a> <a href="#"
+																	data-toggle="modal" data-target="#productModal"><i
+																	class="pe-7s-look"></i></a>
+															</div>
+														</div>
+														<div class="product-content">
+															<div class="pro-title">
+																<h3>
+																	<a href="product-details.html">${item.title }</a>
+																</h3>
+															</div>
+															<div class="price-reviews">
+																<div class="price-box">
+																	<span class="price product-price">${item.price }</span>
+																	<span class="old-price product-price">$262.00</span>
+																</div>
+																<div class="pro-rating">
+																	<a href="#"><i class="fa fa-star-o"></i></a> <a
+																		href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
+																		class="fa fa-star-o"></i></a> <a href="#"><i
+																		class="fa fa-star-o"></i></a> <a href="#"><i
+																		class="fa fa-star-o"></i></a>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</c:forEach>
+											<!-- </form> -->
+										</div>
+									</div>
+									<!-- shiping type1 end -->
+									<div class="tab-pane" id="new">
+										<div class="product-carousel">
 											<div class="col-md-12">
 												<div class="product-wrapper mb-40">
 													<div class="product-img">
-														<a href="#"><img
-															src="img/product/2020款 小新 Pro 13 13.3英寸全面屏轻薄笔记本电脑 .jpg"
-															alt="" /></a> <span class="new-label">New</span>
+														<a href="#"><img src="img/product/2.jpg" alt="" /></a> <span
+															class="new-label">New</span>
 														<div class="product-action">
-															<a
-																href="shoppingCarServlet?action=add&&goodsid=${item.id }"><i
-																class="pe-7s-cart"></i></a> <a href="#"><i
+															<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
 																class="pe-7s-like"></i></a> <a href="#"><i
 																class="pe-7s-folder"></i></a> <a href="#"
 																data-toggle="modal" data-target="#productModal"><i
@@ -309,13 +503,46 @@
 													<div class="product-content">
 														<div class="pro-title">
 															<h3>
-																<a href="product-details.html">${item.title }</a>
+																<a href="product-details.html">Cras Neque Metus</a>
 															</h3>
 														</div>
 														<div class="price-reviews">
 															<div class="price-box">
-																<span class="price product-price">${item.price }</span>
-																<span class="old-price product-price">$262.00</span>
+																<span class="price product-price">￥262.00</span> <span
+																	class="old-price product-price">￥262.00</span>
+															</div>
+															<div class="pro-rating">
+																<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="product-wrapper mb-40 mrg-nn-xs">
+													<div class="product-img">
+														<a href="#"><img src="img/product/10.jpg" alt="" /></a> <span
+															class="new-label">New</span>
+														<div class="product-action">
+															<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
+																class="pe-7s-like"></i></a> <a href="#"><i
+																class="pe-7s-folder"></i></a> <a href="#"
+																data-toggle="modal" data-target="#productModal"><i
+																class="pe-7s-look"></i></a>
+														</div>
+													</div>
+													<div class="product-content">
+														<div class="pro-title">
+															<h3>
+																<a href="product-details.html">Cras Neque Metus</a>
+															</h3>
+														</div>
+														<div class="price-reviews">
+															<div class="price-box">
+																<span class="price product-price">￥262.00</span> <span
+																	class="old-price product-price">￥262.00</span>
 															</div>
 															<div class="pro-rating">
 																<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
@@ -328,2320 +555,360 @@
 													</div>
 												</div>
 											</div>
-										</c:forEach>  -->
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img
-														src="img/product/2020款 小新 Pro 13 13.3英寸全面屏轻薄笔记本电脑 .jpg"
-														alt="" /></a> <span class="new-label">New</span>
-												
-													<div class="product-action">
-														<a
-															href="shoppingCarServlet?action=add&&goodsid=1"><i
-															class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-												
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">2020款 小新 Pro 13
-																13.3英寸全面屏轻薄笔记本电脑 </a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥2662.00</span> <span
-																class="old-price product-price">￥2662.00</span>
+											<div class="col-md-12">
+												<div class="product-wrapper mb-40">
+													<div class="product-img">
+														<a href="#"><img src="img/product/3.jpg" alt="" /></a> <span
+															class="new-label">New</span>
+														<div class="product-action">
+															<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
+																class="pe-7s-like"></i></a> <a href="#"><i
+																class="pe-7s-folder"></i></a> <a href="#"
+																data-toggle="modal" data-target="#productModal"><i
+																class="pe-7s-look"></i></a>
 														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
+													</div>
+													<div class="product-content">
+														<div class="pro-title">
+															<h3>
+																<a href="product-details.html">Cras Neque Metus</a>
+															</h3>
+														</div>
+														<div class="price-reviews">
+															<div class="price-box">
+																<span class="price product-price">￥262.00</span> <span
+																	class="old-price product-price">￥262.00</span>
+															</div>
+															<div class="pro-rating">
+																<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a>
+															</div>
 														</div>
 													</div>
 												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img
-														src="img/product/小新Air14 2021英特尔酷睿i5 14.0英寸全面屏轻薄笔记本电脑.jpg"
-														alt="" /></a> <span class="new-label">New</span>
-													<div class="product-action">
-														<a href="shoppingCarServlet?action=add&&goodsid=2"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">小新Air14 2021英特尔酷睿i5
-																14.0英寸全面屏轻薄笔记本电脑</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥5499.00</span> <span
-																class="old-price product-price">￥6499.00</span>
+												<div class="product-wrapper mb-40 mrg-nn-xs">
+													<div class="product-img">
+														<a href="#"><img src="img/product/9.jpg" alt="" /></a> <span
+															class="new-label">New</span>
+														<div class="product-action">
+															<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
+																class="pe-7s-like"></i></a> <a href="#"><i
+																class="pe-7s-folder"></i></a> <a href="#"
+																data-toggle="modal" data-target="#productModal"><i
+																class="pe-7s-look"></i></a>
 														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
+													</div>
+													<div class="product-content">
+														<div class="pro-title">
+															<h3>
+																<a href="product-details.html">Cras Neque Metus</a>
+															</h3>
+														</div>
+														<div class="price-reviews">
+															<div class="price-box">
+																<span class="price product-price">￥262.00</span> <span
+																	class="old-price product-price">￥262.00</span>
+															</div>
+															<div class="pro-rating">
+																<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a>
+															</div>
 														</div>
 													</div>
 												</div>
 											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img
-														src="img/product/拯救者 Y7000P 2020款 英特尔酷睿i7 15.6英寸游戏笔记本.jpg"
-														alt="" /></a> <span class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">拯救者 Y7000P 2020款
-																英特尔酷睿i7 15.6英寸游戏笔记本</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥8299.00</span> <span
-																class="old-price product-price">￥8499.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
+											<div class="col-md-12">
+												<div class="product-wrapper mb-40">
+													<div class="product-img">
+														<a href="#"><img src="img/product/4.jpg" alt="" /></a> <span
+															class="new-label">New</span>
+														<div class="product-action">
+															<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
+																class="pe-7s-like"></i></a> <a href="#"><i
+																class="pe-7s-folder"></i></a> <a href="#"
+																data-toggle="modal" data-target="#productModal"><i
+																class="pe-7s-look"></i></a>
 														</div>
 													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img
-														src="img/product/拯救者 R7000P 2020款 15.6英寸游戏笔记本.jpg" alt="" /></a>
-													<span class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">拯救者 R7000P 2020款
-																15.6英寸游戏笔记本</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥8299.00</span> <span
-																class="old-price product-price">￥8499.00</span>
+													<div class="product-content">
+														<div class="pro-title">
+															<h3>
+																<a href="product-details.html">Cras Neque Metus</a>
+															</h3>
 														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
+														<div class="price-reviews">
+															<div class="price-box">
+																<span class="price product-price">￥262.00</span> <span
+																	class="old-price product-price">￥262.00</span>
+															</div>
+															<div class="pro-rating">
+																<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="product-wrapper mb-40 mrg-nn-xs">
+													<div class="product-img">
+														<a href="#"><img src="img/product/10.jpg" alt="" /></a> <span
+															class="new-label">New</span>
+														<div class="product-action">
+															<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
+																class="pe-7s-like"></i></a> <a href="#"><i
+																class="pe-7s-folder"></i></a> <a href="#"
+																data-toggle="modal" data-target="#productModal"><i
+																class="pe-7s-look"></i></a>
+														</div>
+													</div>
+													<div class="product-content">
+														<div class="pro-title">
+															<h3>
+																<a href="product-details.html">Cras Neque Metus</a>
+															</h3>
+														</div>
+														<div class="price-reviews">
+															<div class="price-box">
+																<span class="price product-price">￥262.00</span> <span
+																	class="old-price product-price">￥262.00</span>
+															</div>
+															<div class="pro-rating">
+																<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a>
+															</div>
 														</div>
 													</div>
 												</div>
 											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img
-														src="img/product/Y9000X 英特尔酷睿i5 15.6英寸高性能标压轻薄笔记本.jpg"
-														alt="" /></a> <span class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Y9000X 英特尔酷睿i5
-																15.6英寸高性能标压轻薄笔记本</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥6699.00</span> <span
-																class="old-price product-price">￥6999.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
+											<div class="col-md-12">
+												<div class="product-wrapper mb-40">
+													<div class="product-img">
+														<a href="#"><img src="img/product/12.jpg" alt="" /></a> <span
+															class="new-label">New</span>
+														<div class="product-action">
+															<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
+																class="pe-7s-like"></i></a> <a href="#"><i
+																class="pe-7s-folder"></i></a> <a href="#"
+																data-toggle="modal" data-target="#productModal"><i
+																class="pe-7s-look"></i></a>
 														</div>
 													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img
-														src="img/product/Y9000X 英特尔酷睿i7 15.6英寸高性能标压轻薄笔记本.jpg"
-														alt="" /></a> <span class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Y9000X 英特尔酷睿i7
-																15.6英寸高性能标压轻薄笔记本</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥10999.00</span> <span
-																class="old-price product-price">￥11111.00</span>
+													<div class="product-content">
+														<div class="pro-title">
+															<h3>
+																<a href="product-details.html">Cras Neque Metus</a>
+															</h3>
 														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
+														<div class="price-reviews">
+															<div class="price-box">
+																<span class="price product-price">￥262.00</span> <span
+																	class="old-price product-price">￥262.00</span>
+															</div>
+															<div class="pro-rating">
+																<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="product-wrapper mb-40 mrg-nn-xs">
+													<div class="product-img">
+														<a href="#"><img src="img/product/9.jpg" alt="" /></a> <span
+															class="new-label">New</span>
+														<div class="product-action">
+															<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
+																class="pe-7s-like"></i></a> <a href="#"><i
+																class="pe-7s-folder"></i></a> <a href="#"
+																data-toggle="modal" data-target="#productModal"><i
+																class="pe-7s-look"></i></a>
+														</div>
+													</div>
+													<div class="product-content">
+														<div class="pro-title">
+															<h3>
+																<a href="product-details.html">Cras Neque Metus</a>
+															</h3>
+														</div>
+														<div class="price-reviews">
+															<div class="price-box">
+																<span class="price product-price">￥262.00</span> <span
+																	class="old-price product-price">￥262.00</span>
+															</div>
+															<div class="pro-rating">
+																<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a>
+															</div>
 														</div>
 													</div>
 												</div>
 											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img
-														src="img/product/【王源同款】全新ThinkBook 15 酷睿版英特尔酷睿i5 锐智系创造本.jpg"
-														alt="" /></a> <span class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">【王源同款】全新ThinkBook 15
-																酷睿版英特尔酷睿i5 锐智系创造本</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥4899.00</span> <span
-																class="old-price product-price">￥5499.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
+											<div class="col-md-12">
+												<div class="product-wrapper mb-40">
+													<div class="product-img">
+														<a href="#"><img src="img/product/12.jpg" alt="" /></a> <span
+															class="new-label">New</span>
+														<div class="product-action">
+															<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
+																class="pe-7s-like"></i></a> <a href="#"><i
+																class="pe-7s-folder"></i></a> <a href="#"
+																data-toggle="modal" data-target="#productModal"><i
+																class="pe-7s-look"></i></a>
 														</div>
 													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img
-														src="img/product/扬天 威6 2020 14英寸 酷睿版英特尔酷睿i5 商用笔记本电脑.jpg"
-														alt="" /></a> <span class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">扬天 威6 2020 14英寸
-																酷睿版英特尔酷睿i5 商用笔记本电脑</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥4299.00</span> <span
-																class="old-price product-price">￥4599.00</span>
+													<div class="product-content">
+														<div class="pro-title">
+															<h3>
+																<a href="product-details.html">Cras Neque Metus</a>
+															</h3>
 														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
+														<div class="price-reviews">
+															<div class="price-box">
+																<span class="price product-price">￥262.00</span> <span
+																	class="old-price product-price">￥262.00</span>
+															</div>
+															<div class="pro-rating">
+																<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="product-wrapper mb-40 mrg-nn-xs">
+													<div class="product-img">
+														<a href="#"><img src="img/product/9.jpg" alt="" /></a> <span
+															class="new-label">New</span>
+														<div class="product-action">
+															<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
+																class="pe-7s-like"></i></a> <a href="#"><i
+																class="pe-7s-folder"></i></a> <a href="#"
+																data-toggle="modal" data-target="#productModal"><i
+																class="pe-7s-look"></i></a>
+														</div>
+													</div>
+													<div class="product-content">
+														<div class="pro-title">
+															<h3>
+																<a href="product-details.html">Cras Neque Metus</a>
+															</h3>
+														</div>
+														<div class="price-reviews">
+															<div class="price-box">
+																<span class="price product-price">￥262.00</span> <span
+																	class="old-price product-price">￥262.00</span>
+															</div>
+															<div class="pro-rating">
+																<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a>
+															</div>
 														</div>
 													</div>
 												</div>
 											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img src="img/product/十代英特尔酷睿i7 一体台式机.jpg"
-														alt="" /></a> <span class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">十代英特尔酷睿i7 一体台式机</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥5999.00</span> <span
-																class="old-price product-price">￥6299.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
+											<div class="col-md-12">
+												<div class="product-wrapper mb-40">
+													<div class="product-img">
+														<a href="#"><img src="img/product/7.jpg" alt="" /></a> <span
+															class="new-label">New</span>
+														<div class="product-action">
+															<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
+																class="pe-7s-like"></i></a> <a href="#"><i
+																class="pe-7s-folder"></i></a> <a href="#"
+																data-toggle="modal" data-target="#productModal"><i
+																class="pe-7s-look"></i></a>
 														</div>
 													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img
-														src="img/product/天逸510Pro-14IMB 十代英特尔酷睿i3 分体式台式机.jpg"
-														alt="" /></a> <span class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">天逸510Pro-14IMB
-																十代英特尔酷睿i3 分体式台式机</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥2899.00</span> <span
-																class="old-price product-price">￥3000.00</span>
+													<div class="product-content">
+														<div class="pro-title">
+															<h3>
+																<a href="product-details.html">Cras Neque Metus</a>
+															</h3>
 														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
+														<div class="price-reviews">
+															<div class="price-box">
+																<span class="price product-price">￥262.00</span> <span
+																	class="old-price product-price">￥262.00</span>
+															</div>
+															<div class="pro-rating">
+																<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a>
+															</div>
 														</div>
 													</div>
 												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img src="img/product/6.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
+												<div class="product-wrapper mb-40 mrg-nn-xs">
+													<div class="product-img">
+														<a href="#"><img src="img/product/8.jpg" alt="" /></a> <span
+															class="new-label">New</span>
+														<div class="product-action">
+															<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
+																class="pe-7s-like"></i></a> <a href="#"><i
+																class="pe-7s-folder"></i></a> <a href="#"
+																data-toggle="modal" data-target="#productModal"><i
+																class="pe-7s-look"></i></a>
 														</div>
 													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="img/product/9.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
+													<div class="product-content">
+														<div class="pro-title">
+															<h3>
+																<a href="product-details.html">Cras Neque Metus</a>
+															</h3>
 														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img src="img/product/7.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="img/product/8.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
+														<div class="price-reviews">
+															<div class="price-box">
+																<span class="price product-price">￥262.00</span> <span
+																	class="old-price product-price">￥262.00</span>
+															</div>
+															<div class="pro-rating">
+																<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a> <a href="#"><i
+																	class="fa fa-star-o"></i></a>
+															</div>
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-								<div class="tab-pane" id="profile">
-									<div class="product-carousel">
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img
-														src="img/product/天逸510Pro-14IMB 十代英特尔酷睿i3 分体式台式机.jpg"
-														alt="" /></a> <span class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">天逸510Pro-14IMB
-																十代英特尔酷睿i3 分体式台式机</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥2899.00</span> <span
-																class="old-price product-price">￥3000.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img
-														src="img/product/天逸510S-07IMB 分体式台式机.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">天逸510S-07IMB 分体式台式机</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥4299.00</span> <span
-																class="old-price product-price">￥4599.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img
-														src="img/product/拯救者 刃7000K 2020十代英特尔酷睿i7 分体台式机.jpg"
-														alt="" /></a> <span class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">拯救者 刃7000K
-																2020十代英特尔酷睿i7 分体台式机</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥7499.00</span> <span
-																class="old-price product-price">￥7699.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img
-														src="img/product/AIO 逸-24IWL 十代英特尔酷睿i5 23.8英寸一体台式机.jpg"
-														alt="" /></a> <span class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">AIO 逸-24IWL 十代英特尔酷睿i5
-																23.8英寸一体台式机</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥4599.00</span> <span
-																class="old-price product-price">￥4899.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img
-														src="img/product/联想GeekPro 2020 英特尔酷睿i5 分体式台式机.jpg" alt="" /></a>
-													<span class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">联想GeekPro 2020 英特尔酷睿i5
-																分体式台式机</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥4599.00</span> <span
-																class="old-price product-price">￥4899.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img
-														src="img/product/天逸510Pro-15ICK 英特尔酷睿i5 分体式台式机.jpg" alt="" /></a>
-													<span class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">天逸510Pro-15ICK 英特尔酷睿i5
-																分体式台式机</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥3999.00</span> <span
-																class="old-price product-price">￥3999.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img
-														src="img/product/联想 YOGA 27可旋转27英寸4K屏一体机台式电脑.jpg" alt="" /></a>
-													<span class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">联想 YOGA
-																27可旋转27英寸4K屏一体机台式电脑</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥6399.00</span> <span
-																class="old-price product-price">￥6599.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img
-														src="img/product/异能者DIY-TMD 锐龙R7 3700X .jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">异能者DIY-TMD 锐龙R7 3700X
-															</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥5299.00</span> <span
-																class="old-price product-price">￥6099.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img src="img/product/6.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="img/product/5.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img src="img/product/2.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="img/product/2.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img src="img/product/1.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="img/product/8.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="tab-pane" id="messages">
-									<div class="product-carousel">
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img src="img/product/air Pad 11.jpg"
-														alt="" /></a> <span class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">小新Pad 11英寸 学习娱乐</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥1699.00</span> <span
-																class="old-price product-price">￥1799.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="img/product/ThinkVision M14.jpg"
-														alt="" /></a> <span class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">ThinkVision M14</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥1699.00</span> <span
-																class="old-price product-price">￥1699.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img
-														src="img/product/TB-X605FC 10.1英寸平板.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">TB-X605FC 10.1英寸平板</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="img/product/Pad Pro 11.5.jpg"
-														alt="" /></a> <span class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Pad Pro 11.5</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img
-														src="img/product/M10 Plus 网课 10.3.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">M10 Plus 网课 10.3</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="img/product/air Pad 11.jpg"
-														alt="" /></a> <span class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">air Pad 11</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img src="img/product/Pad Pro 11.5.jpg"
-														alt="" /></a> <span class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Pad Pro 11.5</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img
-														src="img/product/YOGA Tab3 Plus-X703F 10.1英寸平板电脑 WIFI版 黑色.jpg"
-														alt="" /></a> <span class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">YOGA Tab3 Plus-X703F
-																10.1英寸平板电脑 WIFI版 黑色</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img src="img/product/5.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="img/product/9.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img src="img/product/6.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="img/product/9.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img src="img/product/7.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="img/product/8.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="tab-pane" id="settings">
-									<div class="product-carousel">
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img src="img/product/U04分线器.jpg" alt="" /></a>
-													<span class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">U04分线器</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="img/product/拯救者Y27q.jpg" alt="" /></a>
-													<span class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">拯救者Y27q</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img src="img/product/USB3.1.jpg" alt="" /></a>
-													<span class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">USB3.1</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="img/product/思匠27.jpg" alt="" /></a>
-													<span class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">思匠27显示器</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img src="img/product/小新Air2鼠标.jpg"
-														alt="小新Air2鼠标.jpg" /></a> <span class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">小新Air2鼠标</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="img/product/L27i 27英寸显示器.jpg"
-														alt="" /></a> <span class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">L27i 27英寸显示器</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img src="img/product/移动硬盘.jpg" alt="" /></a>
-													<span class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">移动硬盘 黑 2T</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="img/product/ThinkVision M14.jpg"
-														alt="" /></a> <span class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">ThinkVision M14显示器</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img src="img/product/5.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="img/product/9.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img src="img/product/6.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="img/product/9.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img src="img/product/7.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="img/product/8.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="tab-pane" id="new">
-									<div class="product-carousel">
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img src="img/product/2.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="img/product/10.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img src="img/product/3.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="img/product/9.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img src="img/product/4.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="img/product/10.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img src="img/product/12.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="img/product/9.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img src="img/product/12.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="img/product/9.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40">
-												<div class="product-img">
-													<a href="#"><img src="img/product/7.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="img/product/8.jpg" alt="" /></a> <span
-														class="new-label">New</span>
-													<div class="product-action">
-														<a href="#"><i class="pe-7s-cart"></i></a> <a href="#"><i
-															class="pe-7s-like"></i></a> <a href="#"><i
-															class="pe-7s-folder"></i></a> <a href="#" data-toggle="modal"
-															data-target="#productModal"><i class="pe-7s-look"></i></a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3>
-															<a href="product-details.html">Cras Neque Metus</a>
-														</h3>
-													</div>
-													<div class="price-reviews">
-														<div class="price-box">
-															<span class="price product-price">￥262.00</span> <span
-																class="old-price product-price">￥262.00</span>
-														</div>
-														<div class="pro-rating">
-															<a href="#"><i class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a> <a href="#"><i
-																class="fa fa-star-o"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
+									<!-- new End -->
 								</div>
 							</div>
+							<!-- row end -->
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	
-	<!-- new-arrival-area end -->
+
+		<!-- new-arrival-area end -->
+	</form>
 	<!-- newsletter-area start -->
 	<!-- <div class="newsletter-area bg-1 ptb-180">
 		<div class="container">
@@ -3354,7 +1621,8 @@
 						<div class="footer-widget">
 							<h3 class="footer-title">购物指南</h3>
 							<ul class="block-content">
-								<li><a href="https://shop.lenovo.com.cn/help/service-provider-information.html?_ga=2.212738268.956753511.1608969783-2124958120.1607225665">服务商信息</a></li>
+								<li><a
+									href="https://shop.lenovo.com.cn/help/service-provider-information.html?_ga=2.212738268.956753511.1608969783-2124958120.1607225665">服务商信息</a></li>
 								<li><a href="#">购买流程</a></li>
 								<li><a href="#">注册登录</a></li>
 								<li><a href="#">商品评价</a></li>
