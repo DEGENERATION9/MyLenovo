@@ -3,6 +3,7 @@
  */
 package com.hpe.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.hpe.pojo.Goods;
@@ -44,5 +45,12 @@ public interface IGoodsDao {
 	 * @return
 	 */
 	List<Goods> asc();
-
+	
+	/**
+	 * 
+	 * 方法描述：通过id查找最近浏览
+	 * @param ids
+	 * @return
+	 */
+	ArrayList<Goods> selectAllById(ArrayList<Integer> ids); 
 }

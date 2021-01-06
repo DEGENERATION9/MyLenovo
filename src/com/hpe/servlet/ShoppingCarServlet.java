@@ -57,9 +57,57 @@ public class ShoppingCarServlet extends HttpServlet {
 		}else if (action.equals("addQua")) {
 			//改变数量
 			addQua(request, response);
+		}else if (action.equals("detailadd")) {
+			//详情页加购
+			detailadd(request, response);
 		}
 	}
-	
+	protected void detailadd(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// 获取商品id
+		int goodsid = Integer.parseInt(request.getParameter("goodsid"));
+		int quantity = Integer.parseInt(request.getParameter("quantity"));
+
+		// 获取购物车
+		HttpSession session = request.getSession();
+		List<ShoppingCar> carlist = (List<ShoppingCar>) session.getAttribute("shoppingcar");
+		// 判断菜品是否存在,
+		boolean flag = false;
+		// 判断购物车是否存在
+		if (carlist == null) {
+			// 创建购物车
+			carlist = new ArrayList<ShoppingCar>();
+
+		} else {
+			// 购物车存在，判断是否有该菜，若有数量加1
+			for (ShoppingCar car : carlist) {
+				if (car.getGoodsid() == goodsid) {
+					car.setSum( quantity);
+					
+					flag = true;
+					break;
+				}
+			}
+		}
+		// 创建一个新的菜品
+		if (!flag) {
+			// 创建购物车实例
+			ShoppingCar car1 = new ShoppingCar();
+			// 根据id查询
+			Goods goods = goodsService.getGoodsById(goodsid);
+			car1.setGoodsid(goodsid);
+			car1.setName(goods.getTitle());
+			car1.setSum(quantity);
+			car1.setPrice(goods.getPrice());
+			// 把商品都添加到list中
+			carlist.add(car1);
+		}
+		// 把购物车放到session中
+		session.setAttribute("shoppingcar", carlist);
+/*		request.getRequestDispatcher("index.jsp").forward(request, response);*/
+		response.sendRedirect("cart.jsp");
+
+	}
 	protected void addQua(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// 获取商品id

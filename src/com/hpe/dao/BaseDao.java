@@ -12,7 +12,7 @@ import java.sql.*;
  */
 public class BaseDao {
 	private String driver="com.mysql.jdbc.Driver";
-	private String url="jdbc:mysql://localhost:3306/bookdb";
+	private String url="jdbc:mysql://localhost:3306/lenovo";
 	private String userno="root";
 	private String pwd="123456";
 	
@@ -40,5 +40,24 @@ public class BaseDao {
 	public static void main(String[] args) {
 		Connection conn=new BaseDao().getConn();
 		System.out.println(conn);
+	}
+	public static void closeall(ResultSet rs, PreparedStatement ps, Connection conn) { //关闭
+		try {
+			if(rs != null) {
+				
+				rs.close();
+			}
+			if(ps != null) {
+				ps.close();
+			}
+			if(conn != null) {
+				conn.close();
+			}
+		
+	    } catch (SQLException e) {
+		// TODO 自动生成的 catch 块
+		e.printStackTrace();
+	    }
+		
 	}
 }

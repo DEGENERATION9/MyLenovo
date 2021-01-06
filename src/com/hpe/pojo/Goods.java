@@ -26,6 +26,23 @@ public class Goods {
 	String config;//商品配置信息
 	
 	
+	public Goods() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Goods(int id, int type, String img, String title, String info, BigDecimal price, int num, String text,
+			String config) {
+		super();
+		this.id = id;
+		this.type = type;
+		this.img = img;
+		this.title = title;
+		this.info = info;
+		this.price = price;
+		this.num = num;
+		this.text = text;
+		this.config = config;
+	}
 	public int getId() {
 		return id;
 	}
