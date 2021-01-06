@@ -40,140 +40,118 @@
 	<!--[if lt IE 8]>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
-	<!-- header start -->
 	<header class="header-pos">
-		<div class="header-area header-middle">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-md-2 col-sm-3 col-xs-12">
-						<div class="logo">
-							<a href="index.jsp"><img src="img/logo/logo1.jpg" alt="" /></a>
+	<div class="header-area header-middle">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-2 col-sm-3 col-xs-12">
+					<div class="logo">
+						<a href="index.jsp"><img src="img/logo/logo1.jpg" alt="" /></a>
+					</div>
+				</div>
+				<div class="col-md-10 col-sm-9 col-xs-12 text-right xs-center">
+					<div class="main-menu display-inline hidden-sm hidden-xs">
+						<nav>
+						<ul>
+							<li><font color="orange">亲爱的 <b>${user.userno }</b>
+									您好!&nbsp;&nbsp;欢迎光临!
+							</font></li>
+							<li><a href="GoodsServlet?action=findbytype&&type=0">首页</a></li>
+							<li><a href="GoodsServlet?action=findbytype1&&type=0">商城</a></li>
+
+						</ul>
+						</ul>
+						</nav>
+					</div>
+					<div class="search-block-top display-inline">
+						<div class="icon-search"></div>
+						<div class="toogle-content">
+							<form action="GoodsServlet?action=search" method="post"
+								id="searchbox">
+								<input type="text" name="title" placeholder="搜索" />
+								<button class="button-search"></button>
+							</form>
 						</div>
 					</div>
-					<div class="col-md-10 col-sm-9 col-xs-12 text-right xs-center">
-						<div class="main-menu display-inline hidden-sm hidden-xs">
-							<nav>
-								<ul>
-									<li><font color="orange">亲爱的 <b>${user.name }</b>
-											您好!&nbsp;&nbsp;欢迎光临!
-									</font></li>
-									<li><a href="GoodsServlet?action=findbytype&&type=0">首页</a></li>
-									<li><a href="shop.html">商城</a></li>
+					<div class="shopping-cart ml-20 display-inline">
+						<a href="cart.jsp"><b>购物车</b></a>
 
-								</ul>
-								</ul>
-							</nav>
-						</div>
-						<div class="search-block-top display-inline">
-							<div class="icon-search"></div>
-							<div class="toogle-content">
-								<form action="GoodsServlet?action=search" method="post"
-									id="searchbox">
-									<input type="text" name="title" placeholder="搜索" />
-									<button class="button-search"></button>
-								</form>
-							</div>
-						</div>
-						<div class="shopping-cart ml-20 display-inline">
-							<a href="cart.jsp"><b>购物车</b></a>
+						<ul>
+							<c:forEach items="${sessionScope.shoppingcar }" var="car">
+								<li><c:set var="count" value="${car.sum }"></c:set> <c:set
+										var="sum" value="${car.sum*car.price }"></c:set> <c:set
+										var="total" value="${total+car.sum*car.price }"></c:set>
+									<div class="cart-img">
+										<a href="#"><img src="img/product/${car.name }.jpg"
+											weight="80%" height="80px" alt="${car.name }" /></a>
+									</div>
+									<div class="cart-content">
+										<h3>
+											<a href="#"> ${car.name }</a>
+										</h3>
+										<!-- <span><b>S, Orange</b></span> -->
+										<span class="cart-price">${car.price }
+											<p align="right">
+												<b>x ${count}</b>
+											</p>
+										</span>
 
-							<ul>
-								<c:forEach items="${sessionScope.shoppingcar }" var="car">
-									<li><c:set var="count" value="${car.sum }"></c:set> <c:set
-											var="sum" value="${car.sum*car.price }"></c:set> <c:set
-											var="total" value="${total+car.sum*car.price }"></c:set>
-										<div class="cart-img">
-											<a href="#"><img src="img/product/${car.name }.jpg"
-												weight="80%" height="80px" alt="${car.name }" /></a>
-										</div>
-										<div class="cart-content">
-											<h3>
-												<a href="#"> ${car.name }</a>
-											</h3>
-											<!-- <span><b>S, Orange</b></span> -->
-											<span class="cart-price">${car.price }
-												<p align="right">
-													<b>x ${count}</b>
-												</p>
-											</span>
-
-										</div> <!-- <div class="cart-del">
+									</div> <!-- <div class="cart-del">
 											<i class="fa fa-times-circle"></i>
 										</div> --></li>
-								</c:forEach>
-								<li>
-									<!-- <div class="shipping"> 
+							</c:forEach>
+							<li>
+								<!-- <div class="shipping"> 
 										<span class="f-left">Shopping </span>
 										<span class="f-right cart-price"> $7.00</span>  
 									</div>  -->
-									<hr class="shipping-border" />
-									<div class="shipping">
-										<span class="f-left"> 合计 </span> <span
-											class="f-right cart-price">${total }</span>
-									</div>
-								</li>
-								<li class="checkout m-0"><a href="cart.jsp">结算 <i
-										class="fa fa-angle-right"></i></a></li>
+								<hr class="shipping-border" />
+								<div class="shipping">
+									<span class="f-left"> 合计 </span> <span
+										class="f-right cart-price">${total }</span>
+								</div>
+							</li>
+							<li class="checkout m-0"><a href="cart.jsp">结算 <i
+									class="fa fa-angle-right"></i></a></li>
 
-							</ul>
-						</div>
-						<div class="setting-menu display-inline">
-							<div class="icon-nav current"></div>
-							<ul class="content-nav toogle-content">
-								<!-- <li class="currencies-block-top">
-									<div class="current">
-										<b>Currency : USD</b>
-									</div>
-									<ul>
-										<li><a href="#">Dollar (USD)</a></li>
-										<li><a href="#">Pound (GBP)</a></li>
-									</ul>
-								</li>
-								<li class="currencies-block-top">
-									<div class="current">
-										<b>English</b>
-									</div>
-									<ul>
-										<li><a href="#">English</a></li>
-										<li><a href="#">اللغة العربية</a></li>
-									</ul>
-								</li>
-								<li class="currencies-block-top">
-									<div class="current">
-										<b>My Account</b>
-									</div>
-									<ul>
-										<li><a href="#">My account</a></li>
-										<li><a href="#">My wishlist</a></li>
+						</ul>
+					</div>
+					<div class="setting-menu display-inline">
+						<div class="icon-nav current"></div>
+						<ul class="content-nav toogle-content">
+
+							<!-- <li><a href="#">My wishlist</a></li>
 										<li><a href="#">Checkout</a></li> -->
-										<li><a href="login.jsp">登录</a></li>  
-										<li><a href="userServlet?action=logout">注销</a></li>
-									</ul>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="mobile-menu-area visible-sm visible-xs">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="mobile-menu">
-							<nav id="mobile-menu-active">
-								<ul>
 
-									<li><a href="GoodsServlet?action=findbytype&&type=0"><font color="white">首页</font></a>
-									</li>
-									<li><a href="shop.html"><font color="white">商城</font></a></li>
-								</ul>
-							</nav>
-						</div>
+							<li><a href="login.jsp">登录/注册</a></li>
+							<li><a href="MyPersonalPage.jsp">用户信息</a></li>
+							<li><a href="userServlet?action=logout">注销退出</a></li>
+						</ul>
+						</li>
+						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
+	<div class="mobile-menu-area visible-sm visible-xs">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="mobile-menu">
+						<nav id="mobile-menu-active">
+						<ul>
+
+							<li><a href="GoodsServlet?action=findbytype&&type=0"><font
+									color="white">首页</font></a></li>
+							<li><a href="GoodsServlet?action=findbytype1&&type=0"><font color="white">商城</font></a></li>
+						</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	</header>
 	<!-- header end -->
 	<!-- slider-container start -->
@@ -206,7 +184,7 @@
 						</div>
 						<div class="cap-readmore wow bounceInUp" data-wow-duration="1.3s"
 							data-wow-delay=".5s">
-							<a href="shop.jsp">Shopping</a>
+							<a href="GoodsServlet?action=findbytype1&&type=0">商城</a>
 						</div>
 					</div>
 				</div>

@@ -52,9 +52,73 @@ public class UserServlet extends HttpServlet {
 			login(request, response);
 		}else if (action.equals("logout")) {
 			logout(request, response);
+		}else if (action.equals("update")) {
+			usersupdate(request, response);
+		}else if (action.equals("reg")) {
+			reg(request, response);
 		}
 	} 
-
+	
+	protected void reg(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
+	  {
+	    String userno = request.getParameter("Nuserno");
+	    String pwd = request.getParameter("Npwd");
+	    String phone = request.getParameter("Nphone");
+	    String email = request.getParameter("Nemail");
+	    
+	    User u = new User( userno, pwd, phone, email);
+	    //User u = new User( name, pwd, realname, sex, address, phone, email);
+	    int result = usersService.userReg(u);
+	    if (result == 1)
+	    {
+	      HttpSession hsession = request.getSession();
+	      hsession.removeAttribute("user");
+	      
+	      response.getWriter().write("<script>alert('注册成功,请重新登录！');window.parent.location.href='" + 
+	      
+	        request.getContextPath() + "/login.jsp';" + 
+	        "</script>");
+	    }
+	    else if (result == 0)
+	    {
+	      response.getWriter().write("<script>alert('注册失败！');window.location.href='" + 
+	      
+	        request.getContextPath() + "/login.jsp';" + 
+	        "</script>");
+	    }
+	  }
+	protected void usersupdate(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
+	  {
+	    String userno = request.getParameter("userno");
+	    String pwd = request.getParameter("pwd");
+	    String realname = request.getParameter("name");
+	    String sex = request.getParameter("sex");
+	    String address = request.getParameter("address");
+	    String phone = request.getParameter("phone");
+	    String email = request.getParameter("email");
+	    int id = Integer.parseInt(request.getParameter("id"));
+	    //int id =1;
+	    User u = new User(id, userno, pwd, realname, sex, address, phone, email);
+	    //User u = new User( name, pwd, realname, sex, address, phone, email);
+	    int result = usersService.update(u);
+	    if (result == 1)
+	    {
+	      HttpSession hsession = request.getSession();
+	      hsession.removeAttribute("user");
+	      
+	      response.getWriter().write("<script>alert('修改成功,请重新登录！');window.parent.location.href='" + 
+	      
+	        request.getContextPath() + "/login.jsp';" + 
+	        "</script>");
+	    }
+	    else if (result == 0)
+	    {
+	      response.getWriter().write("<script>alert('修改失败！');window.location.href='" + 
+	      
+	        request.getContextPath() + "/MyPersonalPage.jsp';" + 
+	        "</script>");
+	    }
+	  }
 	// 注销
 	protected void logout(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

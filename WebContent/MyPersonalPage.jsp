@@ -1,15 +1,16 @@
-<%@ page language="java" import="java.util.*,java.text.*"
-	pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!doctype html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ page language="java" import="java.sql.Statement" import="java.sql.*"%>
+<!DOCTYPE html>
+<!-- 吴培磊 -->
 <html class="no-js" lang="en">
-
-
-
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>购物车主页</title>
+<title>个人页面</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- favicon
@@ -31,40 +32,52 @@
 <link rel="stylesheet" href="css/custom.css">
 
 <!-- Modernizr JS -->
-<script src="js/vendor/modernizr-2.8.3.min.js">
-	
-</script>
+<script src="js/vendor/modernizr-2.8.3.min.js"></script>
 
-<!-- 购物车数量加减 -->
-<script>
-        function getNum(){
-            var num=document.getElementById('qua').value;
-            var gooid=document.getElementById('gooid').value;
-            var url="shoppingCarServlet?action=addQua&&goodsid="+gooid+"&&quantity="+num;
-            window.location.href=url;
-        }
- 
+<script type="text/javascript">
+	function verifyInfo() {
+		//密码
+		if (!verifyPwd(document.user.password.value)) {
+			alert("请按照要求填写密码");
+			return false;
+		}
+		//两次密码相同
+		if (!verifyConfirmPwd(document.user.password.value,
+				document.user.qpassword.value)) {
+			alert("请保证两次输入的密码一致");
+			return false;
+		}
+		//真实姓名
+		if (!verifyName(document.user.name.value)) {
+			alert("请按要求输入真实姓名");
+			return false;
+		}
+		//家庭地址
+		if (!verifyNotNull(document.user.address.value)) {
+			alert("家庭住址不能为空");
+			return false;
+		}
+		//电话号码
+		if (!verifyTel(document.user.phone.value)) {
+			alert("请按要求输入电话号码");
+			return false;
+		}
+		//电子邮箱
+		if (!verifyEmail(document.user.email.value)) {
+			alert("请按要求输入电子邮箱");
+			return false;
+		}
+	}
 </script>
-<!-- 数字输入上下箭头不显示-->
- <style type="text/css">
-input[type=number] {
-	-moz-appearance: textfield;
-}
-
-input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button
-	{
-	-webkit-appearance: none;
-	margin: 0;
-}
-</style>
 </head>
-
 <body>
+
 	<!--[if lt IE 8]>
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 	<!-- header start -->
-	<header class="header-pos blg">
+	<!-- header start -->
+	<header class="header-pos">
 		<div class="header-area header-middle">
 			<div class="container-fluid">
 				<div class="row">
@@ -81,15 +94,18 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 											您好!&nbsp;&nbsp;欢迎光临!
 									</font></li>
 									<li><a href="GoodsServlet?action=findbytype&&type=0">首页</a></li>
-									<li><a href="GoodsServlet?action=findbytype1&&type=0">商城</a></li>
+									<li><a href="shop.html">商城</a></li>
+
+								</ul>
 								</ul>
 							</nav>
 						</div>
 						<div class="search-block-top display-inline">
 							<div class="icon-search"></div>
 							<div class="toogle-content">
-								<form action="#" id="searchbox">
-									<input type="text" placeholder="Search" />
+								<form action="GoodsServlet?action=search" method="post"
+									id="searchbox">
+									<input type="text" name="title" placeholder="搜索" />
 									<button class="button-search"></button>
 								</form>
 							</div>
@@ -132,7 +148,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 											class="f-right cart-price">${total }</span>
 									</div>
 								</li>
-								<li class="checkout m-0"><a href="#">结算 <i
+								<li class="checkout m-0"><a href="cart.jsp">结算 <i
 										class="fa fa-angle-right"></i></a></li>
 
 							</ul>
@@ -140,32 +156,11 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 						<div class="setting-menu display-inline">
 							<div class="icon-nav current"></div>
 							<ul class="content-nav toogle-content">
-								<!-- <li class="currencies-block-top">
-									<div class="current">
-										<b>Currency : USD</b>
-									</div>
-									<ul>
-										<li><a href="#">Dollar (USD)</a></li>
-										<li><a href="#">Pound (GBP)</a></li>
-									</ul>
-								</li>
-								<li class="currencies-block-top">
-									<div class="current">
-										<b>English</b>
-									</div>
-									<ul>
-										<li><a href="#">English</a></li>
-										<li><a href="#">اللغة العربية</a></li>
-									</ul>
-								</li>
-								<li class="currencies-block-top">
-									<div class="current">
-										<b>My Account</b>
-									</div>
-									<ul>
-										<li><a href="#">My account</a></li>
-										<li><a href="#">My wishlist</a></li>
+								
+										<!-- <li><a href="#">My wishlist</a></li>
 										<li><a href="#">Checkout</a></li> -->
+										<li><a href="MyPersonalPage.jsp">修改</a></li>
+										<li><a href="userServlet?action=logout">注册</a></li>
 										<li><a href="login.jsp">登录</a></li>  
 										<li><a href="userServlet?action=logout">注销</a></li>
 									</ul>
@@ -183,11 +178,10 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 						<div class="mobile-menu">
 							<nav id="mobile-menu-active">
 								<ul>
-									<li><font color="orange">亲爱的 <b>${user.name }</b>
-											您好!&nbsp;&nbsp;欢迎光临!
-									</font></li>
-									<li><a href="GoodsServlet?action=findbytype&&type=0">首页</a></li>
-									<li><a href="GoodsServlet?action=findbytype1&&type=0">商城</a></li>
+
+									<li><a href="GoodsServlet?action=findbytype&&type=0"><font color="white">首页</font></a>
+									</li>
+									<li><a href="shop.html"><font color="white">商城</font></a></li>
 								</ul>
 							</nav>
 						</div>
@@ -197,135 +191,114 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 		</div>
 	</header>
 	<!-- header end -->
-	<div class="space-custom"></div>
-	<!-- breadcrumb start -->
-	<div class="breadcrumb-area">
-		<div class="container">
-			<ol class="breadcrumb">
-				<li><a href="GoodsServlet?action=findbytype&&type=0"><i class="fa fa-home"></i></a></li>
-				<li><a href="GoodsServlet?action=findbytype1&&type=0">商城</a></li>
-				<li class="active">购物车</li>
-			</ol>
-		</div>
-	</div>
-	<!-- breadcrumb end -->
-	<!-- cart-main-area start -->
-	<div class="cart-main-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12 col-sm-12 col-xs-12">
-					<div class="table-content table-responsive">
-						<table>
-							<thead>
-								<tr>
-									<th class="product-thumbnail">图片</th>
-									<th class="product-name">产品</th>
-									<th class="product-price">价格</th>
-									<th class="product-quantity">数量</th>
-									<th class="product-subtotal">总价</th>
-									<th class="product-remove">删除</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${sessionScope.shoppingcar }" var="car">
-									<tr>
-										<td class="product-thumbnail"><a href="#"><img
-												src="img/product/${car.name }.jpg" alt="" /></a></td>
-										<td class="product-name" id="carName"><a href="#">${car.name }</a></td>
-										<td class="product-price"><span class="amount">${car.price  }</span></td>
-										<input type="hidden" id="gooid" value="${car.goodsid }"/>
-										<td class="product-quantity">
-											<a href="shoppingCarServlet?action=delOld&&goodsid=${car.goodsid}">
-											<button type="button" 
-												>-</button> </a>
-											<!-- <a href="" onclick="getNum()"> -->
-											<input type="text" id="qua" name="qua"  value="${car.sum }" min="1" style="text-align:center;" onchange="getNum()" />
-											<!-- </a> -->
-											<a href="shoppingCarServlet?action=addOld&&goodsid=${car.goodsid}">
-												<button type="button" 
-												>+</button> </a>
-												<!-- ng-click="add(item.id)" -->
-										</td>
-										
 
-										<c:set var="count" value="${car.sum }"></c:set>
-										<c:set var="sum" value="${car.sum*car.price}"></c:set>
+	<!修改>
+	<table width="900" border="0" align="center" cellpadding="0"
+		cellspacing="0">
+		<tr>
 
-										<td class="product-subtotal"  ng-bind="totalPrice()">${sum }</td>
+		</tr>
+		<tr>
+			<td height="20"></td>
 
-										</form>
+		</tr>
 
-										<td class="product-remove"><a
-											href="shoppingCarServlet?action=delAll&&goodsid=1"><i
-												class="fa fa-times"></i></a></td>
-									</tr>
+		<tr>
+			<td align="center" valign="center" height="450">
 
-								</c:forEach>
+				<form
+					action="${pageContext.request.contextPath }/userServlet?action=update"
+					name="form1" method="post" onsubmit="return verifyInfo()">
 
-								<!-- <tr>
-										<td class="product-thumbnail"><a href="#"><img src="img/product/1.jpg" alt="" /></a></td>
-										<td class="product-name"><a href="#">Vestibulum suscipit</a></td>
-										<td class="product-price"><span class="amount">£165.00</span></td>
-										<td class="product-quantity"><input type="number" value="1" /></td>
-										<td class="product-subtotal">£165.00</td>
-										<td class="product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
-									</tr>
-									<tr>
-										<td class="product-thumbnail"><a href="#"><img src="img/product/2.jpg" alt="" /></a></td>
-										<td class="product-name"><a href="#">Vestibulum dictum magna</a></td>
-										<td class="product-price"><span class="amount">£50.00</span></td>
-										<td class="product-quantity"><input type="number" value="1" /></td>
-										<td class="product-subtotal">£50.00</td>
-										<td class="product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
-									</tr> -->
-							</tbody>
+					<div align="center">
+						<br>
+						<table border="1" cellspacing="0" width="700">
+							<tr>
+								<td colspan="3" align="center" height="25"><font
+									color="#666666">请填写用户信息 </font></td>
+							</tr>
+							<br></br>
+							<br></br>
+							<br></br>
+							<tr>
+								<td height="25" align="right"><font color="#996633">用
+										户 名：</font></td>
+								<td height="25" align="left"><input class="input7"
+									type="text" name="userno" value="${sessionScope.user.userno }" /></td>
+								<td height="25" align="left">&nbsp;您用来登录的用户名</td>
+							</tr>
+							<tr>
+								<td height="25" align="right"><font color="#996633">密&nbsp;&nbsp;
+										&nbsp;码：</font></td>
+								<td height="25" align="left"><input class="input7"
+									type="password" name="pwd" value="${sessionScope.user.password }" /></td>
+								<td height="25" align="left">&nbsp;长度必须大于5个小于16个字符，只能为英语字、数字</td>
+							</tr>
+							<tr>
+								<td height="25" align="right"><font color="#996633">确认密码：</font>
+								</td>
+								<td height="25" align="left"><input class="input7"
+									type="password" name="qpwd" value="${sessionScope.user.password }" /></td>
+								<td height="25" align="left">&nbsp;请将输入的密码再次输入</td>
+							</tr>
+							<tr>
+								<td height="25" align="right"><font color="#996633">真实姓名：</font>
+								</td>
+								<td height="25" align="left"><input class="input7"
+									type="text" name="name"
+									value="${sessionScope.user.name }" /></td>
+								<td height="25" align="left">&nbsp;填写您的真实的姓名</td>
+							</tr>
+							<tr>
+								<td height="25" align="right"><font color="#996633">性&nbsp;
+										&nbsp;&nbsp;别：</font></td>
+								<td height="25" align="left"><input class="input7"
+									type="text" name="sex" value="${sessionScope.user.sex }" /></td>
+								<td height="25" align="left">&nbsp;请填写您的真实信息</td>
+							</tr>
+							<tr>
+								<td height="25" align="right"><font color="#996633">家庭住址：</font>
+								</td>
+								<td height="25" align="left"><input class="input7"
+									type="text" name="address"
+									value="${sessionScope.user.address }" /></td>
+								<td height="25" align="left">&nbsp;请填写您的真实信息</td>
+							</tr>
+							<tr>
+								<td height="25" align="right"><font color="#996633">电话号码：</font>
+								</td>
+								<td height="25" align="left"><input class="input7"
+									type="text" name="phone" value="${sessionScope.user.phone }" /></td>
+								<td height="25" align="left">&nbsp;请填写您的真实信息(格式为02411111111或13911111111)</td>
+							</tr>
+							<tr>
+								<td height="25" align="right"><font color="#996633">电子邮箱：</font>
+								</td>
+								<td height="25" align="left"><input class="input7"
+									type="text" name="email" value="${sessionScope.user.email }" /></td>
+								<td height="25" align="left">&nbsp;请填写您有效的邮件地址，以便于我们为您提供有效的服务。</td>
+							</tr>
+							<tr>
+								<input type="hidden" name="id" value="${sessionScope.user.id }">
+								<td colspan="3" align="center" bordercolorlight="#C0C0C0"
+									bordercolordark="#C0C0C0" height="25"><input type="submit"
+									value="修改" /></td>
+							</tr>
 						</table>
 					</div>
-					<div class="row">
-						<div class="col-md-8 col-sm-7 col-xs-12">
-							<div class="buttons-cart">
-								<!-- <input type="submit" value="清空购物车" /> -->
-								<a href="shoppingCarServlet?action=delCar">清空购物车</a> <a
-									href="shop.jsp">继续购物</a>
-							</div>
-							<!-- <div class="coupon">
-									<h3>Coupon</h3>
-									<p>Enter your coupon code if you have one.</p>
-									<input type="text" placeholder="Coupon code" />
-									<input type="submit" value="Apply Coupon" />
-								</div> -->
-						</div>
-						<div class="col-md-4 col-sm-5 col-xs-12">
-							<div class="cart_totals">
-								<h2>CART
-									总&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;计</h2>
-								<table>
-									<tbody>
-										<!-- <tr class="cart-subtotal">
-												<th>Subtotal</th>
-												<td><span class="amount">￥215.00</span></td>
-											</tr>
- -->
-										<tr class="order-total">
-											<th>合计</th>
-											<td><strong><span class="amount">${total }</span></strong>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-								<div class="wc-proceed-to-checkout">
-									<a href="#">结算</a>
-								</div>
-							</div>
-						</div>
-					</div>
+				</form>
+			</td>
+		</tr>
+		<tr>
+			<td height="10">&nbsp;</td>
+		</tr>
+		<tr>
+		</tr>
 
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- cart-main-area end -->
-	<!-- service-area start -->
+	</table>
+
+
+<!-- service-area start -->
 	<div class="service-area pt-70 pb-40 gray-bg">
 		<div class="container">
 			<div class="row">
@@ -501,7 +474,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 				</div>
 				<div class="modal-body">
 					<div class="modal-img">
-						<a href="GoodsServlet?action=findbytype&&type=0"><img src="img/product/1.jpg" alt="" /></a>
+						<a href="shop.html"><img src="img/product/1.jpg" alt="" /></a>
 					</div>
 					<div class="modal-pro-content">
 						<h3>
@@ -514,7 +487,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 						</div>
 						<span>(2 customer reviews)</span>
 						<div class="price">
-							<span>$70.00</span> <span class="old">$80.11</span>
+							<span>￥70.00</span> <span class="old">￥80.11</span>
 						</div>
 						<p>Pellentesque habitant morbi tristique senectus et netus et
 							malesuada fames ac turpis egestas. Vestibulum tortor quam,
@@ -542,24 +515,14 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 		</div>
 	</div>
 	<!-- Modal end -->
-
-
-	<!-- jquery latest version -->
-	<script src="js/vendor/jquery-1.12.0.min.js"></script>
-	<!-- Bootstrap framework js -->
-	<script src="js/bootstrap.min.js"></script>
-	<!-- ajax-mail js -->
-	<script src="js/ajax-mail.js"></script>
-	<!-- owl.carousel js -->
-	<script src="js/owl.carousel.min.js"></script>
-	<!-- owl.carousel js -->
-	<script src="js/jquery-ui.min.js"></script>
-	<!-- jquery.nivo.slider js -->
-	<script src="js/jquery.nivo.slider.pack.js"></script>
-	<!-- All js plugins included in this file. -->
-	<script src="js/plugins.js"></script>
-	<!-- Main js file that contents all jQuery plugins activation. -->
+	<!-- jquery latest version --> <script
+		src="js/vendor/jquery-1.12.0.min.js"></script> <!-- Bootstrap framework js -->
+	<script src="js/bootstrap.min.js"></script> <!-- ajax-mail js --> <script
+		src="js/ajax-mail.js"></script> <!-- owl.carousel js --> <script
+		src="js/owl.carousel.min.js"></script> <!-- owl.carousel js --> <script
+		src="js/jquery-ui.min.js"></script> <!-- jquery.nivo.slider js --> <script
+		src="js/jquery.nivo.slider.pack.js"></script> <!-- All js plugins included in this file. -->
+	<script src="js/plugins.js"></script> <!-- Main js file that contents all jQuery plugins activation. -->
 	<script src="js/main.js"></script>
 </body>
-
 </html>

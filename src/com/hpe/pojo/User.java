@@ -16,6 +16,30 @@ public class User {
 	private String address;//地址
 	private String phone;//电话
 	private String email;//邮箱
+	
+	
+	public User(int id,String userno, String password, String name, String sex, String address, String phone, String email) {
+		super();
+		this.id=id;
+		this.userno = userno;
+		this.password = password;
+		this.name = name;
+		this.sex = sex;
+		this.address = address;
+		this.phone = phone;
+		this.email = email;
+	}
+	public User(String userno, String password, String phone, String email) {
+		super();
+		this.userno = userno;
+		this.password = password;
+		this.phone = phone;
+		this.email = email;
+	}
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public int getId() {
 		return id;
 	}

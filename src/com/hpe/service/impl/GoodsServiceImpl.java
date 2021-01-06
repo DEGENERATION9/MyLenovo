@@ -48,5 +48,13 @@ public class GoodsServiceImpl implements IGoodsService {
 	public List search(String title) {
 		return goodsDao.search(title);
 	}
+	/* (non-Javadoc)
+	 * @see com.hpe.service.IGoodsService#asc()
+	 */
+	@Override
+	public List<Goods> asc() {
+		
+		return goodsDao.asc();
+	}
 
 }

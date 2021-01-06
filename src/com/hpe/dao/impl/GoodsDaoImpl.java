@@ -113,4 +113,21 @@ public class GoodsDaoImpl implements IGoodsDao {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.hpe.dao.IGoodsDao#asc()
+	 */
+	@Override
+	public List<Goods> asc() {
+		String sql = "select * FROM goods ORDER BY price ASC";
+		List list = null;
+		try {
+			list = dbutil.getQueryList(Goods.class, sql, null);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return list;
+	}
+
 }

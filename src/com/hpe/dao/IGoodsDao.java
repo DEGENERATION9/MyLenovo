@@ -39,4 +39,10 @@ public interface IGoodsDao {
 	 */
 	List<Goods> findAll();
 
+	/** 
+	 * 方法描述：
+	 * @return
+	 */
+	List<Goods> asc();
+
 }

@@ -39,4 +39,10 @@ public interface IGoodsService {
 	 */
 	List<Goods> findAll();
 
+	/** 
+	 * 方法描述：价格升序
+	 * @return
+	 */
+	List<Goods> asc();
+
 }
