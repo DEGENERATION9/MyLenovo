@@ -175,39 +175,39 @@
 							<div class="tab-pane active" id="home">
 								<div class="pro-large-img">
 									<img src="img/product/${it.title }.jpg" alt="" >
-									<a class="popup-link" href="img/product/${item.title }.jpg">放大图片 <i class="fa fa-search-plus" aria-hidden="true"></i></a>
+									<a class="popup-link" href="img/product/${it.title }.jpg">放大图片 <i class="fa fa-search-plus" aria-hidden="true"></i></a>
 								</div>
 							</div>
 							
 							
 							<div class="tab-pane" id="profile">
 								<div class="pro-large-img">
-									<img src="" alt="" />
-									<a class="popup-link" href="">放大图片 <i class="fa fa-search-plus" aria-hidden="true"></i></a>
+									<img src="img/product/${it.title }.jpg" alt="" />
+									<a class="popup-link" href="img/product/${it.title }.jpg">放大图片 <i class="fa fa-search-plus" aria-hidden="true"></i></a>
 								</div>							
 							</div>
 							<div class="tab-pane" id="messages">
 								<div class="pro-large-img">
-									<img src="" alt="" />
-									<a class="popup-link" href="">放大图片 <i class="fa fa-search-plus" aria-hidden="true"></i></a>
+									<img src="img/product/${it.title }.jpg" alt="" />
+									<a class="popup-link" href="img/product/${it.title }.jpg">放大图片 <i class="fa fa-search-plus" aria-hidden="true"></i></a>
 								</div>							
 							</div>
 							<div class="tab-pane" id="settings">
 								<div class="pro-large-img">
-									<img src="" alt="" />
-									<a class="popup-link" href="">放大图片 <i class="fa fa-search-plus" aria-hidden="true"></i></a>
+									<img src="img/product/${it.title }.jpg" alt="" />
+									<a class="popup-link" href="img/product/${it.title }.jpg">放大图片 <i class="fa fa-search-plus" aria-hidden="true"></i></a>
 								</div>							
 							</div>
 							<div class="tab-pane" id="settings2">
 								<div class="pro-large-img">
-									<img src="" alt="" />
-									<a class="popup-link" href="">放大图片 <i class="fa fa-search-plus" aria-hidden="true"></i></a>
+									<img src="img/product/${it.title }.jpg" alt="" />
+									<a class="popup-link" href="img/product/${it.title }.jpg">放大图片 <i class="fa fa-search-plus" aria-hidden="true"></i></a>
 								</div>							
 							</div>
 							<div class="tab-pane" id="settings3">
 								<div class="pro-large-img">
-									<img src="" alt="" />
-									<a class="popup-link" href="">放大图片 <i class="fa fa-search-plus" aria-hidden="true"></i></a>
+									<img src="img/product/${it.title }.jpg" alt="" />
+									<a class="popup-link" href="img/product/${it.title }.jpg">放大图片 <i class="fa fa-search-plus" aria-hidden="true"></i></a>
 								</div>							
 							</div>
 						</div>
