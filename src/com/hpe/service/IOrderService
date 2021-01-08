@@ -1,0 +1,13 @@
+package com.hpe.service;
+
+import com.hpe.pojo.Order;
+
+
+public interface IOrderService {
+	/**
+	 * 
+	 * @param order
+	 * @return
+	 */
+	 int pay(Order order);
+}
